@@ -1,4 +1,4 @@
-package iait.eiv;
+package iait.eiv.controller;
 
 import java.util.Optional;
 
@@ -15,14 +15,17 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import iait.eiv.entity.Provincia;
+import iait.eiv.repository.ProvinciaRepository;
+
 @RestController
-@RequestMapping(path="/eiv")
-public class MainController {
+@RequestMapping(path="/eiv/provincias")
+public class ProvinciaController {
     
     @Autowired
     private ProvinciaRepository provinciaRepository;
 
-    @GetMapping(path="/provincias/{id}", produces="application/json")
+    @GetMapping(path="/{id}", produces="application/json")
     public ResponseEntity<Provincia> getProvincia(@PathVariable Integer id) {
         Optional<Provincia> provinciaOp = provinciaRepository.findById(id);
         if (provinciaOp.isPresent()) {
@@ -32,19 +35,19 @@ public class MainController {
         }
     }
 
-    @GetMapping(path="/provincias/all", produces="application/json")
+    @GetMapping(path="/all", produces="application/json")
     public ResponseEntity<Iterable<Provincia>> getAllProvincias() {
         Iterable<Provincia> provincias = provinciaRepository.findAll();
         return new ResponseEntity<>(provincias, HttpStatus.OK);
     }
 
-    @PostMapping(path="/provincias", consumes="application/json")
+    @PostMapping(path="", consumes="application/json")
     public ResponseEntity<Provincia> createProvincia(@RequestBody Provincia provincia) {
         Provincia provinciaResponse = provinciaRepository.save(provincia);
         return new ResponseEntity<>(provinciaResponse, HttpStatus.OK);
     }
 
-    @PutMapping(path="/provincias/{id}", consumes="application/json")
+    @PutMapping(path="/{id}", consumes="application/json")
     public ResponseEntity<Provincia> updateProvincia(@PathVariable Integer id, @RequestBody Provincia provinciaInput) {
         Optional<Provincia> provinciaOp = provinciaRepository.findById(id);
         if (provinciaOp.isPresent()) {
@@ -57,7 +60,7 @@ public class MainController {
         }
     }
 
-    @PatchMapping(path="/provincias/{id}", consumes="application/json")
+    @PatchMapping(path="/{id}", consumes="application/json")
     public ResponseEntity<Provincia> partiallyUpdateProvincia(@PathVariable Integer id, @RequestBody Provincia provinciaInput) {
         Optional<Provincia> provinciaOp = provinciaRepository.findById(id);
         if (provinciaOp.isPresent()) {
@@ -70,7 +73,7 @@ public class MainController {
         }
     }
 
-    @DeleteMapping(path="/provincias/{id}", produces="application/json")
+    @DeleteMapping(path="/{id}", produces="application/json")
     public ResponseEntity<Provincia> deleteProvincia(@PathVariable Integer id) {
         Optional<Provincia> provinciaOp = provinciaRepository.findById(id);
         if (provinciaOp.isPresent()) {

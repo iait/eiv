@@ -1,4 +1,4 @@
-package iait.eiv;
+package iait.eiv.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
