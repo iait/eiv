@@ -18,7 +18,7 @@ USE `mydb` ;
 -- Table `mydb`.`tipos_documentos`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `mydb`.`tipos_documentos` (
-  `id_tipodocumento` INT NOT NULL,
+  `id_tipodocumento` INT NOT NULL AUTO_INCREMENT,
   `nombre` VARCHAR(200) NOT NULL,
   `abreviatura` VARCHAR(5) NOT NULL,
   `validar_como_cuit` TINYINT(1) NOT NULL DEFAULT '0',
@@ -31,7 +31,7 @@ ENGINE = InnoDB;
 -- Table `mydb`.`provincias`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `mydb`.`provincias` (
-  `id_provincia` INT NOT NULL,
+  `id_provincia` INT NOT NULL AUTO_INCREMENT,
   `nombre` VARCHAR(400) NOT NULL,
   `region` CHAR(3) NOT NULL,
   PRIMARY KEY (`id_provincia`),
@@ -44,7 +44,7 @@ ENGINE = InnoDB;
 -- Table `mydb`.`localidades`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `mydb`.`localidades` (
-  `id_localidad` INT NOT NULL,
+  `id_localidad` INT NOT NULL AUTO_INCREMENT,
   `nombre` VARCHAR(300) NOT NULL,
   `id_provincia` INT NOT NULL,
   `codigo_postal` VARCHAR(10) NOT NULL,
@@ -110,3 +110,12 @@ ENGINE = InnoDB;
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
+
+-- -----------------------------------------------------
+-- User
+-- -----------------------------------------------------
+create user 'mydbuser'@'%' identified by 'mydbuser';
+grant all on mydb.* to 'mydbuser'@'%';
+revoke all on mydb.* from 'mydbuser'@'%';
+grant select, insert, delete, update on mydb.* to 'mydbuser'@'%';
+
