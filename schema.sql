@@ -35,8 +35,7 @@ CREATE TABLE IF NOT EXISTS `mydb`.`provincias` (
   `nombre` VARCHAR(400) NOT NULL,
   `region` CHAR(3) NOT NULL,
   PRIMARY KEY (`id_provincia`),
-  UNIQUE INDEX `nombre_UNIQUE` (`nombre` ASC),
-  UNIQUE INDEX `region_UNIQUE` (`region` ASC))
+  UNIQUE INDEX `nombre_UNIQUE` (`nombre` ASC))
 ENGINE = InnoDB;
 
 
