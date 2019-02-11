@@ -1,0 +1,514 @@
+{
+	"info": {
+		"_postman_id": "f7a86c5c-f0f4-4942-b87b-1dc584868abe",
+		"name": "EIV",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "provincias POST",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"nombre\": \"Córdoba\",\n    \"region\": \"PAM\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/eiv/provincias",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"eiv",
+						"provincias"
+					]
+				},
+				"description": "Consultar todas las provincias"
+			},
+			"response": []
+		},
+		{
+			"name": "provincias GET",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/eiv/provincias/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"eiv",
+						"provincias",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "provincias GET all",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/eiv/provincias/all",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"eiv",
+						"provincias",
+						"all"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "provincias PUT",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"nombre\": \"Córdoba\",\n    \"region\": \"PAM\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/eiv/provincias/2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"eiv",
+						"provincias",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "provincias PATCH",
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"region\": \"CUY\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/eiv/provincias/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"eiv",
+						"provincias",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "provincias DELETE",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Accept",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/eiv/provincias/2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"eiv",
+						"provincias",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "tiposdocumento POST dni",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"nombre\": \"Documento Nacional de Identidad\",\n    \"abreviatura\": \"DNI\",\n    \"validar_como_cuit\": false\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/eiv/tiposdocumento",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"eiv",
+						"tiposdocumento"
+					]
+				},
+				"description": "Consultar todas las provincias"
+			},
+			"response": []
+		},
+		{
+			"name": "tiposdocumento POST cuit",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"nombre\": \"Código Único de Identificación Tributaria\",\n    \"abreviatura\": \"CUIT\",\n    \"validar_como_cuit\": true\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/eiv/tiposdocumento",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"eiv",
+						"tiposdocumento"
+					]
+				},
+				"description": "Consultar todas las provincias"
+			},
+			"response": []
+		},
+		{
+			"name": "tiposdocumento POST lc",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"nombre\": \"Libreta Cívica\",\n    \"abreviatura\": \"LC\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/eiv/tiposdocumento",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"eiv",
+						"tiposdocumento"
+					]
+				},
+				"description": "Consultar todas las provincias"
+			},
+			"response": []
+		},
+		{
+			"name": "tiposdocumento GET all",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/eiv/tiposdocumento/all",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"eiv",
+						"tiposdocumento",
+						"all"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localidades POST",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"nombre\": \"Rosario\",\n    \"provincia\": 1,\n    \"codigo_postal\": 2000\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/eiv/localidades",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"eiv",
+						"localidades"
+					]
+				},
+				"description": "Consultar todas las provincias"
+			},
+			"response": []
+		},
+		{
+			"name": "localidades GET all",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/eiv/localidades/all",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"eiv",
+						"localidades",
+						"all"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "usuario GET all",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/eiv/usuarios/all",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"eiv",
+						"usuarios",
+						"all"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "usuario GET",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/eiv/usuarios?tipodoc=DNI&numdoc=35152588",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"eiv",
+						"usuarios"
+					],
+					"query": [
+						{
+							"key": "tipodoc",
+							"value": "DNI"
+						},
+						{
+							"key": "numdoc",
+							"value": "35152588"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "usuario POST",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"tipo_documento\": 1,\n    \"numero_documento\": 35152588,\n    \"nombre\": \"iait\",\n    \"pwd\": \"123123\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/eiv/usuarios",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"eiv",
+						"usuarios"
+					]
+				},
+				"description": "Consultar todas las provincias"
+			},
+			"response": []
+		},
+		{
+			"name": "usuario POST Copy",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"tipo_documento\": 1,\n    \"numero_documento\": 123456789,\n    \"nombre_apellido\": \"Roger Federer\",\n    \"fecha_nacimiento\": \"1981-08-08\",\n    \"genero\": \"M\",\n    \"es_argentino\": false,\n    \"correo_electronico\": \"roger.federer@atp.com\",\n    \"localidad\": 1,\n    \"codigo_postal\": 2000\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/eiv/personas",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"eiv",
+						"personas"
+					]
+				},
+				"description": "Consultar todas las provincias"
+			},
+			"response": []
+		}
+	]
+}
