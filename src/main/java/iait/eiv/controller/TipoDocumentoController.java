@@ -4,6 +4,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,7 +26,7 @@ public class TipoDocumentoController {
     @Autowired
     private TipoDocumentoRepository tipoDocumentoRepository;
 
-    @GetMapping(path="/{id}", produces="application/json")
+    @GetMapping(path="/{id}", produces=MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<TipoDocumento> getTipoDocumento(@PathVariable Integer id) {
         Optional<TipoDocumento> tipoDocOp = tipoDocumentoRepository.findById(id);
         if (tipoDocOp.isPresent()) {
@@ -35,19 +36,19 @@ public class TipoDocumentoController {
         }
     }
 
-    @GetMapping(path="/all", produces="application/json")
+    @GetMapping(path="/all", produces=MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Iterable<TipoDocumento>> getAllTiposDocumento() {
         Iterable<TipoDocumento> tiposDoc = tipoDocumentoRepository.findAll();
         return new ResponseEntity<>(tiposDoc, HttpStatus.OK);
     }
 
-    @PostMapping(path="", consumes="application/json")
+    @PostMapping(path="", consumes=MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<TipoDocumento> createTipoDocumento(@RequestBody TipoDocumento tipoDoc) {
         TipoDocumento tipoDocResponse = tipoDocumentoRepository.save(tipoDoc);
         return new ResponseEntity<>(tipoDocResponse, HttpStatus.OK);
     }
 
-    @PutMapping(path="/{id}", consumes="application/json")
+    @PutMapping(path="/{id}", consumes=MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<TipoDocumento> updateTipoDoc(@PathVariable Integer id, @RequestBody TipoDocumento tipoDocInput) {
         Optional<TipoDocumento> tipoDocOp = tipoDocumentoRepository.findById(id);
         if (tipoDocOp.isPresent()) {
@@ -60,7 +61,7 @@ public class TipoDocumentoController {
         }
     }
 
-    @PatchMapping(path="/{id}", consumes="application/json")
+    @PatchMapping(path="/{id}", consumes=MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<TipoDocumento> partiallyUpdateTipoDoc(@PathVariable Integer id, @RequestBody TipoDocumento tipoDocInput) {
         Optional<TipoDocumento> tipoDocOp = tipoDocumentoRepository.findById(id);
         if (tipoDocOp.isPresent()) {
@@ -73,7 +74,7 @@ public class TipoDocumentoController {
         }
     }
 
-    @DeleteMapping(path="/{id}", produces="application/json")
+    @DeleteMapping(path="/{id}", produces=MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<TipoDocumento> deleteProvincia(@PathVariable Integer id) {
         Optional<TipoDocumento> tipoDocOp = tipoDocumentoRepository.findById(id);
         if (tipoDocOp.isPresent()) {

@@ -4,6 +4,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -31,7 +32,7 @@ public class UsuarioController {
     @Autowired
     private TipoDocumentoRepository tipoDocumentoRepository;
 
-    @GetMapping(path="", produces="application/json")
+    @GetMapping(path="", produces=MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Usuario> getUsuario(@RequestParam("tipodoc") String tipoDoc,
             @RequestParam("numdoc") Integer numDoc) {
         // busca tipo de documento por abreviatura
@@ -53,19 +54,19 @@ public class UsuarioController {
         }
     }
 
-    @GetMapping(path="/all", produces="application/json")
+    @GetMapping(path="/all", produces=MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Iterable<Usuario>> getAllUsuarios() {
         Iterable<Usuario> usuarios = usuarioRepository.findAll();
         return new ResponseEntity<>(usuarios, HttpStatus.OK);
     }
 
-    @PostMapping(path="", consumes="application/json")
+    @PostMapping(path="", consumes=MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Usuario> createUsuario(@RequestBody Usuario usuario) {
         Usuario usuarioResponse = usuarioRepository.save(usuario);
         return new ResponseEntity<>(usuarioResponse, HttpStatus.OK);
     }
 
-    @PutMapping(path="", consumes="application/json")
+    @PutMapping(path="", consumes=MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Usuario> updateUsuario(@RequestParam("tipodoc") String tipoDoc,
             @RequestParam("numdoc") Integer numDoc, @RequestBody Usuario usuarioInput) {
         // busca tipo de documento por abreviatura
@@ -90,7 +91,7 @@ public class UsuarioController {
         }
     }
 
-    @PatchMapping(path="", consumes="application/json")
+    @PatchMapping(path="", consumes=MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Usuario> partiallyUpdateUsuario(@RequestParam("tipodoc") String tipoDoc,
             @RequestParam("numdoc") Integer numDoc, @RequestBody Usuario usuarioInput) {
         // busca tipo de documento por abreviatura
@@ -115,7 +116,7 @@ public class UsuarioController {
         }
     }
 
-    @DeleteMapping(path="", produces="application/json")
+    @DeleteMapping(path="", produces=MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Usuario> deleteUsuario(@RequestParam("tipodoc") String tipoDoc,
             @RequestParam("numdoc") Integer numDoc) {
         // busca tipo de documento por abreviatura

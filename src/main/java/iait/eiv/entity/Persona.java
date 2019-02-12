@@ -1,5 +1,6 @@
 package iait.eiv.entity;
 
+import java.sql.Blob;
 import java.sql.Date;
 
 import javax.persistence.Column;
@@ -7,8 +8,8 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.IdClass;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.mysql.jdbc.Blob;
 
 @Entity(name="personas")
 @IdClass(PersonaPK.class)
@@ -44,9 +45,9 @@ public class Persona {
     @JsonProperty("correo_electronico")
     private String correoElectronico;
 
-//    @Column(name="foto_cara")
-//    @JsonProperty("foto_cara")
-//    private Blob fotoCara;
+    @Column(name="foto_cara")
+    @JsonIgnore
+    private Blob fotoCara;
 
     @Column(name="id_localidad")
     @JsonProperty("localidad")
@@ -56,13 +57,20 @@ public class Persona {
     @JsonProperty("codigo_postal")
     private String codigoPostal;
 
+    public Blob getFotoCara() {
+        return fotoCara;
+    }
+
+    public void setFotoCara(Blob fotoCara) {
+        this.fotoCara = fotoCara;
+    }
+
     public void update(Persona other) {
         this.nombre = other.nombre;
         this.fechaNacimiento = other.fechaNacimiento;
         this.genero = other.genero;
         this.esArgentino = other.esArgentino;
         this.correoElectronico = other.correoElectronico;
-//        this.fotoCara = other.fotoCara;
         this.localidad = other.localidad;
         this.codigoPostal = other.codigoPostal;
     }
@@ -83,9 +91,6 @@ public class Persona {
         if (other.correoElectronico != null) {
             this.correoElectronico = other.correoElectronico;
         }
-//        if (other.fotoCara != null) {
-//            this.fotoCara = other.fotoCara;
-//        }
         if (other.localidad != null) {
             this.localidad = other.localidad;
         }

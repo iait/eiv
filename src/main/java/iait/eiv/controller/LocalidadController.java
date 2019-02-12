@@ -4,6 +4,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,7 +26,7 @@ public class LocalidadController {
     @Autowired
     private LocalidadRepository localidadRepository;
 
-    @GetMapping(path="/{id}", produces="application/json")
+    @GetMapping(path="/{id}", produces=MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Localidad> getLocalidad(@PathVariable Integer id) {
         Optional<Localidad> localidadOp = localidadRepository.findById(id);
         if (localidadOp.isPresent()) {
@@ -35,19 +36,19 @@ public class LocalidadController {
         }
     }
 
-    @GetMapping(path="/all", produces="application/json")
+    @GetMapping(path="/all", produces=MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Iterable<Localidad>> getAllLocalidades() {
         Iterable<Localidad> localidades = localidadRepository.findAll();
         return new ResponseEntity<>(localidades, HttpStatus.OK);
     }
 
-    @PostMapping(path="", consumes="application/json")
+    @PostMapping(path="", consumes=MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Localidad> createLocalidad(@RequestBody Localidad localidad) {
         Localidad localidadResponse = localidadRepository.save(localidad);
         return new ResponseEntity<>(localidadResponse, HttpStatus.OK);
     }
 
-    @PutMapping(path="/{id}", consumes="application/json")
+    @PutMapping(path="/{id}", consumes=MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Localidad> updateLocalidad(@PathVariable Integer id, @RequestBody Localidad localidadInput) {
         Optional<Localidad> localidadOp = localidadRepository.findById(id);
         if (localidadOp.isPresent()) {
@@ -60,7 +61,7 @@ public class LocalidadController {
         }
     }
 
-    @PatchMapping(path="/{id}", consumes="application/json")
+    @PatchMapping(path="/{id}", consumes=MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Localidad> partiallyUpdateLocalidad(@PathVariable Integer id, @RequestBody Localidad localidadInput) {
         Optional<Localidad> localidadOp = localidadRepository.findById(id);
         if (localidadOp.isPresent()) {
@@ -73,7 +74,7 @@ public class LocalidadController {
         }
     }
 
-    @DeleteMapping(path="/{id}", produces="application/json")
+    @DeleteMapping(path="/{id}", produces=MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Localidad> deleteLocalidad(@PathVariable Integer id) {
         Optional<Localidad> localidadOp = localidadRepository.findById(id);
         if (localidadOp.isPresent()) {
