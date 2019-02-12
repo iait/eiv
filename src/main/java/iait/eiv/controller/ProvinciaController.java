@@ -4,6 +4,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,7 +26,7 @@ public class ProvinciaController {
     @Autowired
     private ProvinciaRepository provinciaRepository;
 
-    @GetMapping(path="/{id}", produces="application/json")
+    @GetMapping(path="/{id}", produces=MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Provincia> getProvincia(@PathVariable Integer id) {
         Optional<Provincia> provinciaOp = provinciaRepository.findById(id);
         if (provinciaOp.isPresent()) {
@@ -35,19 +36,19 @@ public class ProvinciaController {
         }
     }
 
-    @GetMapping(path="/all", produces="application/json")
+    @GetMapping(path="/all", produces=MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Iterable<Provincia>> getAllProvincias() {
         Iterable<Provincia> provincias = provinciaRepository.findAll();
         return new ResponseEntity<>(provincias, HttpStatus.OK);
     }
 
-    @PostMapping(path="", consumes="application/json")
+    @PostMapping(path="", consumes=MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Provincia> createProvincia(@RequestBody Provincia provincia) {
         Provincia provinciaResponse = provinciaRepository.save(provincia);
         return new ResponseEntity<>(provinciaResponse, HttpStatus.OK);
     }
 
-    @PutMapping(path="/{id}", consumes="application/json")
+    @PutMapping(path="/{id}", consumes=MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Provincia> updateProvincia(@PathVariable Integer id, @RequestBody Provincia provinciaInput) {
         Optional<Provincia> provinciaOp = provinciaRepository.findById(id);
         if (provinciaOp.isPresent()) {
@@ -60,7 +61,7 @@ public class ProvinciaController {
         }
     }
 
-    @PatchMapping(path="/{id}", consumes="application/json")
+    @PatchMapping(path="/{id}", consumes=MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Provincia> partiallyUpdateProvincia(@PathVariable Integer id, @RequestBody Provincia provinciaInput) {
         Optional<Provincia> provinciaOp = provinciaRepository.findById(id);
         if (provinciaOp.isPresent()) {
@@ -73,7 +74,7 @@ public class ProvinciaController {
         }
     }
 
-    @DeleteMapping(path="/{id}", produces="application/json")
+    @DeleteMapping(path="/{id}", produces=MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Provincia> deleteProvincia(@PathVariable Integer id) {
         Optional<Provincia> provinciaOp = provinciaRepository.findById(id);
         if (provinciaOp.isPresent()) {

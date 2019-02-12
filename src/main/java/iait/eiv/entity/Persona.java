@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.IdClass;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Entity(name="personas")
@@ -45,7 +46,7 @@ public class Persona {
     private String correoElectronico;
 
     @Column(name="foto_cara")
-    @JsonProperty("foto_cara")
+    @JsonIgnore
     private Blob fotoCara;
 
     @Column(name="id_localidad")
