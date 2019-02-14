@@ -1,8 +1,9 @@
 package iait.eiv.security;
 
 import java.util.Base64;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Date;
-import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
@@ -11,10 +12,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Component;
 
+import iait.eiv.entity.Usuario;
+import iait.eiv.repository.UsuarioRepository;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.JwtException;
@@ -28,38 +30,45 @@ public class JwtTokenProvider {
     private String secretKey = "secret";
 
     @Value("${security.jwt.token.expire-length:3600000}")
-    private long validityInMilliseconds = 3600000; // 1h
+    private long validityInMilliseconds = 3_600_000; // 1h
 
     @Autowired
-    private UserDetailsService userDetailsService;
+    private UsuarioRepository usuarioRepository;
 
     @PostConstruct
     protected void init() {
         secretKey = Base64.getEncoder().encodeToString(secretKey.getBytes());
     }
 
-    public String createToken(String username, List<String> roles) {
+    public String createToken(String username) {
 
         Claims claims = Jwts.claims().setSubject(username);
-        claims.put("roles", roles);
 
         Date now = new Date();
         Date validity = new Date(now.getTime() + validityInMilliseconds);
 
-        return Jwts.builder()//
-            .setClaims(claims)//
-            .setIssuedAt(now)//
-            .setExpiration(validity)//
-            .signWith(SignatureAlgorithm.HS256, secretKey)//
+        return Jwts.builder()
+            .setClaims(claims)
+            .setIssuedAt(now)
+            .setExpiration(validity)
+            .signWith(SignatureAlgorithm.HS256, secretKey)
             .compact();
     }
 
     public Authentication getAuthentication(String token) {
-        UserDetails userDetails = this.userDetailsService.loadUserByUsername(getUsername(token));
-        return new UsernamePasswordAuthenticationToken(userDetails, "", userDetails.getAuthorities());
+        String nombre = getUsername(token);
+        Usuario usuario;
+        if (nombre.equals("admin")) {
+            usuario = new Usuario();
+            usuario.setNombre("admin");
+        } else {
+            usuario = usuarioRepository.findByNombre(nombre).get();
+        }
+        Collection<SimpleGrantedAuthority> roleUser = Collections.singleton(new SimpleGrantedAuthority("ROLE_USER"));
+        return new UsernamePasswordAuthenticationToken(usuario, "", roleUser);
     }
 
-    public String getUsername(String token) {
+    private String getUsername(String token) {
         return Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token).getBody().getSubject();
     }
 
@@ -81,7 +90,7 @@ public class JwtTokenProvider {
 
             return true;
         } catch (JwtException | IllegalArgumentException e) {
-            throw new InvalidJwtAuthenticationException("Expired or invalid JWT token");
+            throw new RuntimeException("Token inválido o expirado");
         }
     }
 
