@@ -34,6 +34,7 @@ Esta consulta traerá la información de todas las personas creadas.
 En los siguientes ejemplos se omite el header de autenticación para simplificar. 
 
 Para acceder a los recursos se utilizan los siguientes métodos:
+    
     GET http://localhost:8080/eiv/recurso/{id} 
         - Para obtener una instancia de la entidad. El recurso puede ser: provincias, localidades, tiposdocumentos.
         
