@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import iait.eiv.entity.Localidad;
+import iait.eiv.error.EntityNotFoundException;
 import iait.eiv.repository.LocalidadRepository;
 
 @RestController
@@ -32,7 +33,7 @@ public class LocalidadController {
         if (localidadOp.isPresent()) {
             return new ResponseEntity<>(localidadOp.get(), HttpStatus.OK);
         } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            throw new EntityNotFoundException("localidad");
         }
     }
 

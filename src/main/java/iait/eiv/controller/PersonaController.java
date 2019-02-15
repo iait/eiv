@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Blob;
 import java.sql.SQLException;
+import java.util.Arrays;
 import java.util.Optional;
 
 import javax.sql.rowset.serial.SerialBlob;
@@ -25,9 +26,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import iait.eiv.entity.Localidad;
 import iait.eiv.entity.Persona;
 import iait.eiv.entity.PersonaPK;
 import iait.eiv.entity.TipoDocumento;
+import iait.eiv.error.EntityNotFoundException;
+import iait.eiv.error.InvalidInputException;
+import iait.eiv.repository.LocalidadRepository;
 import iait.eiv.repository.PersonaRepository;
 import iait.eiv.repository.TipoDocumentoRepository;
 
@@ -40,6 +45,9 @@ public class PersonaController {
     
     @Autowired
     private TipoDocumentoRepository tipoDocumentoRepository;
+
+    @Autowired
+    private LocalidadRepository localidadRepository;
 
     @GetMapping(path="", produces=MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Persona> getPersona(@RequestParam("tipodoc") String tipoDoc,
@@ -69,8 +77,25 @@ public class PersonaController {
         return new ResponseEntity<>(personas, HttpStatus.OK);
     }
 
+    private void fillCodigoPostal(Persona persona) {
+        if (persona.getCodigoPostal() == null && persona.getLocalidad() != null) {
+            Optional<Localidad> localidadOp = localidadRepository.findById(persona.getLocalidad());
+            if (localidadOp.isPresent()) {
+                persona.setCodigoPostal(localidadOp.get().getCodigoPostal());
+            }
+        }
+    }
+
+    private void validatePersona(Persona persona) {
+        if (!Arrays.asList(null, "M", "F").contains(persona.getGenero())) {
+            throw new InvalidInputException("El género debe ser M o F. Valor: " + persona.getGenero());
+        }
+    }
+
     @PostMapping(path="", consumes=MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Persona> createPersona(@RequestBody Persona persona) {
+        validatePersona(persona);
+        fillCodigoPostal(persona);
         Persona personaResponse = personaRepository.save(persona);
         return new ResponseEntity<>(personaResponse, HttpStatus.OK);
     }
@@ -78,6 +103,7 @@ public class PersonaController {
     @PutMapping(path="", consumes=MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Persona> updatePersona(@RequestParam("tipodoc") String tipoDoc,
             @RequestParam("numdoc") Integer numDoc, @RequestBody Persona personaInput) {
+        validatePersona(personaInput);
         // busca tipo de documento por abreviatura
         Optional<TipoDocumento> tipoDocumentoOp = tipoDocumentoRepository.findByAbreviatura(tipoDoc);
         if (tipoDocumentoOp.isPresent()) {
@@ -90,6 +116,7 @@ public class PersonaController {
             if (personaOp.isPresent()) {
                 Persona persona = personaOp.get();
                 persona.update(personaInput);
+                fillCodigoPostal(persona);
                 Persona personaResponse = personaRepository.save(persona);
                 return new ResponseEntity<>(personaResponse, HttpStatus.OK);
             } else {
@@ -103,6 +130,7 @@ public class PersonaController {
     @PatchMapping(path="", consumes=MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Persona> partiallyUpdatePersona(@RequestParam("tipodoc") String tipoDoc,
             @RequestParam("numdoc") Integer numDoc, @RequestBody Persona personaInput) {
+        validatePersona(personaInput);
         // busca tipo de documento por abreviatura
         Optional<TipoDocumento> tipoDocumentoOp = tipoDocumentoRepository.findByAbreviatura(tipoDoc);
         if (tipoDocumentoOp.isPresent()) {
@@ -159,10 +187,10 @@ public class PersonaController {
                 personaRepository.save(persona);
                 return new ResponseEntity<>(persona, HttpStatus.OK);
             } else {
-                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+                throw new EntityNotFoundException("persona");
             }
         } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            throw new EntityNotFoundException("tipo de documento");
         }
     }
 

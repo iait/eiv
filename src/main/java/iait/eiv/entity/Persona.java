@@ -65,6 +65,22 @@ public class Persona {
         this.fotoCara = fotoCara;
     }
 
+    public String getCodigoPostal() {
+        return codigoPostal;
+    }
+
+    public void setCodigoPostal(String codigoPostal) {
+        this.codigoPostal = codigoPostal;
+    }
+
+    public Integer getLocalidad() {
+        return localidad;
+    }
+
+    public String getGenero() {
+        return genero;
+    }
+
     public void update(Persona other) {
         this.nombre = other.nombre;
         this.fechaNacimiento = other.fechaNacimiento;
